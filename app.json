@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "journal-app",
+    "slug": "journal-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "journal-app",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
