@@ -3,17 +3,39 @@ import React, { useState } from 'react'
 import { images } from '../../constants'
 import FormField from '../../components/FormField'
 import AuthButton from '../../components/AuthButton'
-import { Link } from 'expo-router'
+import { Link, router } from 'expo-router'
+import supabase from '../../supabase'
 
 const SignIn = () => {
+  const [isLoading, setIsLoading] = useState(false)
+
   const [form, setForm] = useState({
     email: '',
     password: ''
   })
 
-  const [isLoading, setIsLoading] = useState(false)
+  const handleSignIn = async () => {
+    if (!form.email || !form.password) {
+      alert('Please fill in all fields')
+      return
+    }
+    setIsLoading(true)
 
-  const handleSignIn = () => { }
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: form.email,
+      password: form.password
+    })
+
+    if (error) {
+      alert(error.message)
+      setIsLoading(false)
+    }
+    else {
+      setIsLoading(false)
+      alert('Sign In Successful')
+      router.replace("/home")
+    }
+  }
 
   return (
     <SafeAreaView>

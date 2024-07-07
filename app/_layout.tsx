@@ -26,21 +26,21 @@ const RootLayout = () => {
   if (!fontsLoaded && !error) return null;
 
 
-  return (
-    <Stack>
-      <Stack.Screen name="index" options={{
-        headerShown: false
-      }} />
-            <Stack.Screen name="(auth)" options={{
-        headerShown: false
-      }} />
-       <Stack.Screen name="(tabs)" options={{
-        headerShown: false
-      }} />
-       {/* <Stack.Screen name="/summary/[query]" options={{
-        headerShown: false
-      }} /> */}
-    </Stack>
+  return (<Stack>
+    <Stack.Screen name="index" options={{
+      headerShown: false
+    }} />
+          <Stack.Screen name="(auth)" options={{
+      headerShown: false
+    }} />
+     <Stack.Screen name="(tabs)" options={{
+      headerShown: false
+    }} />
+     {/* <Stack.Screen name="/summary/[query]" options={{
+      headerShown: false
+    }} /> */}
+  </Stack>
+    
   )
 }
 

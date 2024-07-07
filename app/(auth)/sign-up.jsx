@@ -3,7 +3,8 @@ import React, { useState } from 'react'
 import { images } from '../../constants'
 import FormField from '../../components/FormField'
 import AuthButton from '../../components/AuthButton'
-import { Link } from 'expo-router'
+import { Link, router } from 'expo-router'
+import supabase from '../../supabase'
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -14,7 +15,33 @@ const SignUp = () => {
 
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleSignUp = () => { }
+  const handleSignUp = () => {
+    if (!form.email || !form.password || !form.username) {
+      alert('Please fill in all fields')
+      return
+    }
+    setIsLoading(true)
+
+    const { data, error } = supabase.auth.signUp({
+      email: form.email,
+      password: form.password,
+      options: {
+        data: {
+          username: form.username,
+        },
+      },
+    })
+
+    if (error) {
+      alert(error.message)
+      setIsLoading(false)
+    }
+    else {
+      setIsLoggedIn(true)
+      alert('Please check your inbox for email verification!')
+      router.push("/sign-in")
+    }
+  }
 
   return (
     <SafeAreaView>
