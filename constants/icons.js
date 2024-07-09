@@ -7,6 +7,7 @@ import search from "../assets/icons/search.png";
 import chart from "../assets/icons/bar-chart.png";
 import eye from "../assets/icons/eye.png";
 import hidden from "../assets/icons/hidden.png";
+import calender from "../assets/icons/calendar.png";
 export default {
   home,
   plus,
@@ -16,4 +17,5 @@ export default {
   chart,
   eye,
   hidden,
+  calender,
 };
