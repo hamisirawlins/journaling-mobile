@@ -47,7 +47,9 @@ const SignUp = () => {
     <SafeAreaView>
       <ScrollView>
         <View className="w-full justify-center min-h-[80vh]  px-4 my-6">
-          <Image className="rounded-full w-48 h-48" source={images.image1} />
+          <View className="flex-row justify-center">
+            <Image className="rounded-full w-48 h-48" source={images.protection} />
+          </View>
           <Text className="text-2xl text-black font-pregular text-center py-4 mt-6">Sign Up To Journal</Text>
           <FormField
             title="Username"

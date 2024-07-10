@@ -5,7 +5,7 @@ const SummaryItem = ({ label, value }) => {
   return (
     <View className="flex-col mb-2">
       <Text className="text-lg text-right text-gray-800">{label}:</Text>
-      <Text className="text-4xl text-right font-bold text-blue-300">{value}</Text>
+      <Text className="text-4xl text-right font-bold text-secondary">{value}</Text>
     </View>
   );
 };

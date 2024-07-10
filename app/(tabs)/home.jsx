@@ -1,10 +1,10 @@
-import { View, Text, SafeAreaView, FlatList, TouchableOpacity, Image } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import { View, Text, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useUser } from "../../context/userContext";
 import http from '../../utils/http';
 import SummaryItem from '../../components/SummaryComponent';
-import { capitalizeFirstLetter } from '../../utils/formatter';
-import { router } from "expo-router";
+import { capitalizeFirstLetter, formatCardText, formatDate } from '../../utils/formatter';
+import { router, useFocusEffect } from "expo-router";
 
 const Home = () => {
   const session = useUser();
@@ -14,39 +14,46 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [loadingSummary, setLoadingSummary] = useState(true);
 
+  const fetchEntryData = async () => {
+    try {
+      const response = await http.get('/journals?page=1&perPage=3');
+      setEntries(response.data);
+    } catch (err) {
+      console.error('Failed to fetch data:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchSummaryData = async () => {
+    try {
+      const endDate = new Date().toISOString();
+      const startDate = new Date();
+      startDate.setDate(startDate.getDate() - 7);
+      const startDateISOString = startDate.toISOString();
+
+      const url = `/summaries?startDate=${encodeURIComponent(startDateISOString)}&endDate=${encodeURIComponent(endDate)}`;
+
+      const response = await http.get(url);
+      setSummary(response);
+    } catch (err) {
+      console.error('Failed to fetch data:', err);
+    } finally {
+      setLoadingSummary(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchEntryData = async () => {
-      try {
-        const response = await http.get('/journals?page=1&perPage=4');
-        setEntries(response.data);
-      } catch (err) {
-        console.error('Failed to fetch data:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    const fetchSummaryData = async () => {
-      try {
-        const endDate = new Date().toISOString();
-        const startDate = new Date();
-        startDate.setDate(startDate.getDate() - 7);
-        const startDateISOString = startDate.toISOString();
-
-        const url = `/summaries?startDate=${encodeURIComponent(startDateISOString)}&endDate=${encodeURIComponent(endDate)}`;
-
-        const response = await http.get(url);
-        setSummary(response);
-      } catch (err) {
-        console.error('Failed to fetch data:', err);
-      } finally {
-        setLoadingSummary(false);
-      }
-    };
-
     fetchEntryData();
     fetchSummaryData();
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      // Fetch entries whenever the screen is focused
+      fetchEntryData();
+    }, [])
+  );
 
   return (
     <SafeAreaView className="flex-1 bg-blue-100">
@@ -57,13 +64,15 @@ const Home = () => {
       {loadingSummary ? <Text className="text-center text-gray-600 mt-4">Loading...</Text> : (
         <View className="bg-white p-5 mx-5 rounded-lg shadow-md">
           <Text className="text-xl font-bold mb-4 text-gray-500">Last 7 days</Text>
-          <View className="flex-row justify-between">
-            <SummaryItem label="Most Used Category" value={capitalizeFirstLetter(summary.mostUsedCategory)} />
-            <SummaryItem label="Entries" value={summary.numberOfEntries} />
-          </View>
-          <View className="flex-row justify-between">
-            <SummaryItem label="Avg Entries/Day" value={summary.averageEntriesPerDay} />
-            <SummaryItem label="Avg Words/Entry" value={summary.averageWordsPerEntry} />
+          <View className="flex-row">
+            <View className="flex-col px-2">
+              <SummaryItem label="Most Used Category" value={capitalizeFirstLetter(summary.mostUsedCategory)} />
+              <SummaryItem label="Entries" value={summary.numberOfEntries} />
+            </View>
+            <View className="flex-col px-4">
+              <SummaryItem label="Avg Entries/Day" value={summary.averageEntriesPerDay} />
+              <SummaryItem label="Avg Words/Entry" value={summary.averageWordsPerEntry} />
+            </View>
           </View>
         </View>
       )}
@@ -83,13 +92,14 @@ const Home = () => {
 
             )}
             renderItem={({ item }) => (
-              <View className="mb-5">
-                <Text className="text-xl font-bold text-gray-800">{item.title}</Text>
-                <Text className="text-base text-gray-600">{item.content}</Text>
+              <View className="mb-5 bg-black-200 rounded-lg px-4 py-2">
+                <Text className="text-lg font-bold text-gray-200">{item.title}</Text>
+                <Text className="text-base text-gray-300">{formatCardText(item.content)}</Text>
+                <Text className="text-sm text-gray-500 text-right">{formatDate(item.created_at)}</Text>
               </View>
             )}
             keyExtractor={(item) => item.entry_id}
-            ListHeaderComponent={<Text className="text-2xl font-bold text-gray-600 mb-4">Latest Entries</Text>}
+            ListHeaderComponent={<Text className="text-xl font-bold text-gray-600 mb-4">Latest Entries</Text>}
           />
         )}
       </View>
