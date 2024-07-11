@@ -85,6 +85,12 @@ const CreateEntry = () => {
     setIsLoading(true);
     try {
       await http.delete(`/journals/${entryId}`);
+      setForm({
+        title: '',
+        content: '',
+        category: ''
+      });
+      router.replace("/create");
       alert('Entry Deleted Successfully');
       router.replace("/home");
     } catch (err) {
@@ -171,7 +177,7 @@ const CreateEntry = () => {
                 });
                 router.replace("/create");
               }}
-              className="bg-gray-300 py-3 px-5 rounded-xl mt-5 min-[62px] justify-center items-center"
+              className="bg-white py-3 px-5 rounded-xl mt-5 min-[62px] justify-center items-center"
               disabled={isLoading}
             >
               <Text className="text-black text-center font-psemibold">Cancel Edit</Text>

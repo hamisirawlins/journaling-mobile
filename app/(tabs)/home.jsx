@@ -87,14 +87,16 @@ const Home = () => {
           <FlatList
             data={entries}
             ListEmptyComponent={() => (
-              <TouchableOpacity
-                onPress={() => {
-                  router.push("/create")
-                }}
-                className="bg-secondary py-3 px-5 rounded-xl mt-5 min-[62px] justify-center items-center"
-              >
-                <Text className="text-white text-center font-psemibold">Create An Entry</Text>
-              </TouchableOpacity>
+              <View className="my-5">
+                <TouchableOpacity
+                  onPress={() => {
+                    router.push("/create")
+                  }}
+                  className="bg-secondary py-3 px-5 rounded-xl mt-5 min-[62px] justify-center items-center"
+                >
+                  <Text className="text-white text-center font-psemibold">Create An Entry</Text>
+                </TouchableOpacity>
+              </View>
 
             )}
             renderItem={({ item }) => (
