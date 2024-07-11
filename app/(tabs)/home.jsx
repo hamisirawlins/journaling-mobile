@@ -76,9 +76,12 @@ const Home = () => {
           </View>
         </View>
       )}
-      <View className="bg-white p-5 m-5 rounded-lg shadow-md">
-        <View>
-          <Text className="text-xl font-bold text-gray-600 mb-4">Latest Entries</Text>
+      <View className="bg-white px-5 m-5 rounded-lg shadow-md">
+        <View className="py-4">
+          <Text className="text-xl font-bold text-gray-600">Latest Entries</Text>
+        </View>
+        <View className="flex-row py-4">
+          <View className="flex-1 h-1 bg-black" />
         </View>
         {loading ? <Text className="text-center text-gray-600 mt-4">Loading...</Text> : (
           <FlatList

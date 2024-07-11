@@ -159,7 +159,7 @@ const CreateEntry = () => {
             className="bg-green-400 py-3 px-5 rounded-xl mt-5 min-[62px] justify-center items-center"
             disabled={isLoading}
           >
-            <Text className="text-white text-center font-psemibold">{entryId ? 'Update' : 'Save'} Entry</Text>
+            <Text className="text-white text-center font-psemibold">{entryId ? 'Update Journal' : 'Create Journal'} Entry</Text>
           </TouchableOpacity>
           {entryId && (
             <TouchableOpacity

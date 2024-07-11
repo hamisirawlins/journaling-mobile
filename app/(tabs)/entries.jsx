@@ -59,7 +59,10 @@ const Entries = () => {
         <SafeAreaView className="flex-1 bg-blue-100">
             <View className="bg-white p-5 m-5 rounded-lg shadow-md h-full">
                 <View>
-                    <Text className="text-xl font-bold text-gray-600 mb-4">Your Entries</Text>
+                    <Text className="text-xl font-bold text-gray-600 mb-4">Your Journal Entries</Text>
+                </View>
+                <View className="flex-row my-2">
+                    <View className="flex-1 h-1 bg-black" />
                 </View>
                 {loading ? (
                     <Text className="text-center text-gray-600 mt-4">Loading...</Text>
