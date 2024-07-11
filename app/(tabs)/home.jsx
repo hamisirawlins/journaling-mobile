@@ -50,7 +50,7 @@ const Home = () => {
 
   useFocusEffect(
     useCallback(() => {
-      // Fetch entries whenever the screen is focused
+      fetchSummaryData();
       fetchEntryData();
     }, [])
   );
@@ -77,6 +77,9 @@ const Home = () => {
         </View>
       )}
       <View className="bg-white p-5 m-5 rounded-lg shadow-md">
+        <View>
+          <Text className="text-xl font-bold text-gray-600 mb-4">Latest Entries</Text>
+        </View>
         {loading ? <Text className="text-center text-gray-600 mt-4">Loading...</Text> : (
           <FlatList
             data={entries}
@@ -95,11 +98,10 @@ const Home = () => {
               <View className="mb-5 bg-black-200 rounded-lg px-4 py-2">
                 <Text className="text-lg font-bold text-gray-200">{item.title}</Text>
                 <Text className="text-base text-gray-300">{formatCardText(item.content)}</Text>
-                <Text className="text-sm text-gray-500 text-right">{formatDate(item.created_at)}</Text>
+                <Text className="text-sm text-gray-400 text-right">{formatDate(item.created_at)}</Text>
               </View>
             )}
             keyExtractor={(item) => item.entry_id}
-            ListHeaderComponent={<Text className="text-xl font-bold text-gray-600 mb-4">Latest Entries</Text>}
           />
         )}
       </View>

@@ -1,9 +1,9 @@
 import { View, Text, Image } from 'react-native'
 import React from 'react'
-import { Tabs, Redirect } from 'expo-router'
+import { Tabs } from 'expo-router'
 import { icons } from '../../constants'
 
-const TabIcon = ({ icon, color, name, focused }) => {
+const TabIcon = ({ icon, color }) => {
     return (
         <View className="items-center justify-center gap-2">
             <Image
@@ -39,7 +39,16 @@ const TabsLayout = () => {
                     options={{
                         title: 'Create', headerShown: false,
                         tabBarIcon: ({ color, focused }) => {
-                            return <TabIcon icon={icons.plus} color={color} name="home" focused={focused} />
+                            return <TabIcon icon={icons.plus} color={color} name="create" focused={focused} />
+                        }
+                    }}
+                />
+                                <Tabs.Screen
+                    name="entries"
+                    options={{
+                        title: 'Entries', headerShown: false,
+                        tabBarIcon: ({ color, focused }) => {
+                            return <TabIcon icon={icons.news} color={color} name="entries" focused={focused} />
                         }
                     }}
                 />
