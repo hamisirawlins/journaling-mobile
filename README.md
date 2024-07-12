@@ -1,19 +1,62 @@
-# Journal app 👋
+```markdown
+# Journal App 👋
 
-## Icon Resources:
+A mobile application for personal journaling.
 
-https://www.flaticon.com/
+## Project Overview
 
-## Get started
+This is the frontend of a personal journaling app, built using React Native and Expo. It allows users to write journal entries, categorize them, and view summaries.
 
-1. Install dependencies
+## Features
 
-   ```bash
-   npm install
-   ```
+- User Authentication
+- Journal Entry Management (Add, Edit, Delete)
+- Categorization of Entries
+- Summary View (Daily, Weekly, Monthly)
+- User Settings (Update username and password)
 
-2. Start the app
+## Tech Stack
 
-   ```bash
-    npx expo start
-   ```
+- React Native (Expo)
+- TypeScript
+- Supabase
+- Axios
+
+## Setup Instructions
+
+### Prerequisites
+
+- Node.js (>= 14.x)
+- Expo CLI (`npm install -g expo-cli`)
+- Supabase account
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone <repository-url>
+cd <appropriate-directory>
+```
+
+2. Install Dependencies:
+
+```bash
+npm install
+```
+
+3. Start Up The Expo Service:
+
+```bash
+npm start
+```
+
+4. Select appropriate Simulator To Test With Using the Expo instructions Or Use Bash:
+
+```bash
+expo start --android
+expo start --ios
+expo start --web
+```
+
+
