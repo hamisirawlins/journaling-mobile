@@ -37,7 +37,7 @@ const SignUp = () => {
       setIsLoading(false)
     }
     else {
-      setIsLoggedIn(true)
+      setIsLoading(true)
       alert('Please check your inbox for email verification!')
       router.push("/sign-in")
     }
